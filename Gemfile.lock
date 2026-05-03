@@ -313,7 +313,6 @@ DEPENDENCIES
   solid_queue
   sqlite3 (>= 2.1)
   thruster
-  tzinfo-data
 
 BUNDLED WITH
    2.4.6
