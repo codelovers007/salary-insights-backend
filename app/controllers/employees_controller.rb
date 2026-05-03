@@ -60,12 +60,12 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit( :full_name, :job_title, :country,
+    params.require(:employee).permit( :first_name, :last_name, :job_title, :country,
                                     :salary, :department, :date_of_joining
     )
   end
 
   def response_fields
-    [:id, :full_name, :job_title, :country, :salary, :department, :date_of_joining]
+    [:id, :full_name, :last_name, :job_title, :country, :salary, :department, :date_of_joining]
   end
 end
