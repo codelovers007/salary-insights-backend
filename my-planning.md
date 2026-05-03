@@ -23,8 +23,8 @@ HR Manager managing 10k employees.
 ## APIs
 
 ### Employee CRUD
-GET    /employees
-POST   /employees
-GET    /employees/:id
-PUT    /employees/:id
-DELETE /employees/:id
+- GET    /employees
+- POST   /employees
+- GET    /employees/:id
+- PUT    /employees/:id
+- DELETE /employees/:id
