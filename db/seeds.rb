@@ -25,6 +25,7 @@ employees = []
 	employees << {
 		first_name: first,
 		last_name: last,
+		full_name: "#{first} #{last}",
 		job_title: job_titles.sample,
 		country: countries.sample,
 		salary: rand(30_000..200_000),
