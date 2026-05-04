@@ -27,7 +27,7 @@ class InsightsController < ApplicationController
     limit = params[:limit]&.to_i || 10
 
     data = Employee.order(salary: :desc).limit(limit)
-                  .select(:id, :full_name, :salary, :country, :job_title)
+                  .select(:id, :first_name, :last_name, :salary, :country, :job_title)
 
     render json: data
   end
