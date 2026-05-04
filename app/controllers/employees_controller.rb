@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    employees = Employee.all
+    employees = Employee.order(created_at: :desc)
 
     # Filtering
     employees = employees.by_country(params[:country]) if params[:country].present?
@@ -46,7 +46,7 @@ class EmployeesController < ApplicationController
   # DELETE /employees/:id
   def destroy
     if @employee.destroy
-      render json: { success: "Deleted Successfully" }, status: 200
+      head :no_content
     else
       render json: { errors: @employee.errors.full_messages }, status: :unprocessable_entity
     end
