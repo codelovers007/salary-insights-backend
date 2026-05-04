@@ -9,6 +9,13 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :employees
 
+  resources :dropdowns, only: [] do
+    collection do
+      get :countries
+      get :job_titles
+    end
+  end
+
   resources :insights, only: [] do
     collection do
       get :country
