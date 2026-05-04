@@ -13,7 +13,7 @@ RSpec.describe "Dropdowns API", type: :request do
       expect(response).to have_http_status(:ok)
       data = JSON.parse(response.body)
 
-      expect(data).to match_array(["India", "USA"])
+      expect(data).to match_array([ "India", "USA" ])
     end
   end
 

@@ -3,6 +3,7 @@ class Employee < ApplicationRecord
   scope :by_job_title, ->(title) { where(job_title: title) }
 
   before_validation :set_full_name
+  validates_presence_of :first_name, :last_name
 
   def self.page_limits
     50
