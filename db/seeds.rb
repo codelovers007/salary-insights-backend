@@ -12,28 +12,28 @@ puts "Seeding employees..."
 first_names = File.readlines(Rails.root.join('db/seeds/first_names.txt')).map(&:strip)
 last_names  = File.readlines(Rails.root.join('db/seeds/last_names.txt')).map(&:strip)
 
-job_titles = ["Engineer", "Manager", "HR", "Designer", "Analyst"]
-countries  = ["India", "USA", "UK", "Germany", "Canada"]
-departments = ["Tech", "HR", "Finance", "Design"]
+job_titles = [ "Engineer", "Manager", "HR", "Designer", "Analyst" ]
+countries  = [ "India", "USA", "UK", "Germany", "Canada" ]
+departments = [ "Tech", "HR", "Finance", "Design" ]
 
 employees = []
 
 10000.times do
-	first = first_names.sample
-	last  = last_names.sample
+  first = first_names.sample
+  last  = last_names.sample
 
-	employees << {
-		first_name: first,
-		last_name: last,
-		full_name: "#{first} #{last}",
-		job_title: job_titles.sample,
-		country: countries.sample,
-		salary: rand(30_000..200_000),
-		department: departments.sample,
-		date_of_joining: rand(5.years).seconds.ago.to_date,
-		created_at: Time.current,
-		updated_at: Time.current
-	}
+  employees << {
+    first_name: first,
+    last_name: last,
+    full_name: "#{first} #{last}",
+    job_title: job_titles.sample,
+    country: countries.sample,
+    salary: rand(30_000..200_000),
+    department: departments.sample,
+    date_of_joining: rand(5.years).seconds.ago.to_date,
+    created_at: Time.current,
+    updated_at: Time.current
+  }
 end
 
 Employee.insert_all(employees)

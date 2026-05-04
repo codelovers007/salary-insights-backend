@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:show, :update, :destroy]
+  before_action :set_employee, only: [ :show, :update, :destroy ]
 
   # GET /employees
   def index
@@ -46,7 +46,7 @@ class EmployeesController < ApplicationController
   # DELETE /employees/:id
   def destroy
     if @employee.destroy
-      render json: { success: 'Deleted Successfully' }, status: 200
+      render json: { success: "Deleted Successfully" }, status: 200
     else
       render json: { errors: @employee.errors.full_messages }, status: :unprocessable_entity
     end
@@ -60,12 +60,12 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit( :first_name, :last_name, :job_title, :country,
+    params.require(:employee).permit(:first_name, :last_name, :job_title, :country,
                                     :salary, :department, :date_of_joining
     )
   end
 
   def response_fields
-    [:id, :full_name, :last_name, :job_title, :country, :salary, :department, :date_of_joining]
+    [ :id, :full_name, :last_name, :job_title, :country, :salary, :department, :date_of_joining ]
   end
 end
