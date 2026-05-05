@@ -6,7 +6,7 @@ class EmployeesController < ApplicationController
     employees = Employee.order(created_at: :desc)
     employees = apply_filters(employees)
     employees = apply_pagination(employees)
-  
+
     render json: employees.select(*response_fields)
   end
 
@@ -49,7 +49,7 @@ class EmployeesController < ApplicationController
   def set_employee
     @employee = Employee.find_by(id: params[:id])
     return if @employee
-  
+
     render json: { error: "Employee not found" }, status: :not_found
   end
 
@@ -62,7 +62,7 @@ class EmployeesController < ApplicationController
   def apply_pagination(scope)
     limit  = params[:limit]&.to_i || Employee.page_limits
     offset = params[:offset]&.to_i || 0
-  
+
     scope.limit(limit).offset(offset)
   end
 
@@ -74,6 +74,6 @@ class EmployeesController < ApplicationController
   end
 
   def response_fields
-    [:id, :first_name, :last_name, :job_title, :country, :salary]
+    [ :id, :first_name, :last_name, :job_title, :country, :salary ]
   end
 end
