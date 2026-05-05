@@ -4,18 +4,10 @@ class EmployeesController < ApplicationController
   # GET /employees
   def index
     employees = Employee.order(created_at: :desc)
-
-    # Filtering
-    employees = employees.by_country(params[:country]) if params[:country].present?
-    employees = employees.by_job_title(params[:job_title]) if params[:job_title].present?
-
-    # Pagination
-    limit = params[:limit]&.to_i || Employee.page_limits
-    offset = params[:offset]&.to_i || 0
-
-    employees = employees.limit(limit).offset(offset)
-
-    render json: employees
+    employees = apply_filters(employees)
+    employees = apply_pagination(employees)
+  
+    render json: employees.select(*response_fields)
   end
 
   # GET /employees/:id
@@ -37,7 +29,7 @@ class EmployeesController < ApplicationController
   # PUT /employees/:id
   def update
     if @employee.update(employee_params)
-      render json: @employee
+      render json: @employee, status: :ok
     else
       render json: { errors: @employee.errors.full_messages }, status: :unprocessable_entity
     end
@@ -56,16 +48,32 @@ class EmployeesController < ApplicationController
 
   def set_employee
     @employee = Employee.find_by(id: params[:id])
-    render json: { error: "Employee not found" }, status: :not_found unless @employee
+    return if @employee
+  
+    render json: { error: "Employee not found" }, status: :not_found
+  end
+
+  def apply_filters(scope)
+    scope = scope.by_country(params[:country]) if params[:country].present?
+    scope = scope.by_job_title(params[:job_title]) if params[:job_title].present?
+    scope
+  end
+
+  def apply_pagination(scope)
+    limit  = params[:limit]&.to_i || Employee.page_limits
+    offset = params[:offset]&.to_i || 0
+  
+    scope.limit(limit).offset(offset)
   end
 
   def employee_params
-    params.require(:employee).permit(:first_name, :last_name, :job_title, :country,
-                                    :salary, :department, :date_of_joining
+    params.require(:employee).permit(
+      :first_name, :last_name, :job_title, :country,
+      :salary, :department, :date_of_joining
     )
   end
 
   def response_fields
-    [ :id, :full_name, :last_name, :job_title, :country, :salary, :department, :date_of_joining ]
+    [:id, :first_name, :last_name, :job_title, :country, :salary]
   end
 end

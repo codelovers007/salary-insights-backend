@@ -1,11 +1,19 @@
 class DropdownsController < ApplicationController
   def countries
-    countries = Employee.distinct.pluck(:country).compact.sort
-    render json: countries
+    render json: fetch_distinct_records(:country)
   end
 
   def job_titles
-    job_titles = Employee.distinct.pluck(:job_title).compact.sort
-    render json: job_titles
+    render json: fetch_distinct_records(:job_title)
+  end
+
+  private
+
+  def fetch_distinct_records(column)
+    Employee
+      .where.not(column => nil)
+      .distinct
+      .order(column)
+      .pluck(column)
   end
 end
