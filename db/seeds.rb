@@ -7,6 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+puts "Resetting employees..."
+Employee.delete_all
+
 puts "Seeding employees..."
 
 first_names = File.readlines(Rails.root.join('db/seeds/first_names.txt')).map(&:strip)
